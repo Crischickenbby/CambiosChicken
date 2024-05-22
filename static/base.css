@@ -1,0 +1,137 @@
+/*Nav Gestor*/
+
+
+.container__principal {
+    /*De todo el gestor*/
+    width: 100vw;
+    min-height: 100vh;
+    /* background-color: red; */
+}
+
+.container__nav__contenido {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 100vh;
+    /* background-color: yellow; */
+}
+
+.navbar__hero {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    background-color: #eff2f9;
+    background-color: #0f1013;
+    overflow: hidden;
+    position: relative;
+}
+
+.navbar__foto__container {
+    width: 7ch;
+    margin: 10px auto;
+}
+
+.navbar__imagen {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+
+.perfil__container{
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+/*Corregido*/
+.dropdown-toggle{
+    width: 100% !important;
+    font-size: 15px !important;
+    overflow: hidden;
+}
+
+.navbar__lista {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    gap: 40px;
+    margin-top: 40px;
+    /* background-color: red; */
+}
+
+.nav__icon__flex {
+    display: flex;
+    flex-direction: column;
+    gap: 41px;
+    align-items: center;
+    /* background-color: greenyellow; */
+}
+
+.nav__icon__flex i {
+    color: #eff2f9;
+    font-size: 17px;
+}
+
+.navbar__hero ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.navbar__hero ul li a {
+    color: white;
+    text-decoration: none;
+    padding: 5px;
+}
+
+
+/* .nav__icon__flex li .item__nav:hover,
+.nav__icon__flex li .item__nav:hover i {
+    transition: all .6s ease;
+} */
+
+/* Estilos para el primer elemento .item__nav */
+.nav__icon__flex li .item__nav:hover,
+.nav__icon__flex li .item__nav:hover i {
+    color: rgb(38, 230, 176);
+}
+    
+
+
+
+
+
+.tooggle_position {
+    position: sticky;
+    left: 0px;
+    top: 0;
+    height: 28px;
+    width: 28px;
+    line-height: 28px;
+    color: white;
+    text-align: center;
+    background-color: #0f1013;
+    background-color: gainsboro;
+    display: none;
+}
+
+.video__container {
+    width: 85%;
+    height: 100vh;
+    /* background-color: red; */
+}
+
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* .collapse-horizontal,
+.collapsing-horizontal {
+    transition: width 0.55s ease !important;
+} */

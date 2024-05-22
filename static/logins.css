@@ -1,0 +1,231 @@
+/* LETRAS */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    /*outline: 1px solid red;*/
+}
+
+body {
+    scroll-behavior: smooth;
+    font-family: 'Raleway', sans-serif;
+    color: #4B60EB;
+}
+
+/*Seccion del login*/
+.Inicio__Sesion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-image: url(../static/imagenes/fondoArc.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container__sigin__titulos {
+    /*El card*/
+    width: 31%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+    border-radius: 12px;
+    /* background-color: #28033142; */
+}
+
+.signin__titulo {
+    font-size: 56px;
+    font-weight: bold;
+    margin: 10px 0px;
+    color: rgba(0, 0, 0, 0.742);
+}
+
+.login__input {
+    /*los formualrios*/
+    display: block;
+    width: 100%;
+    padding: 19px;
+    border-radius: 15px;
+    border: 1.85px solid #75757527;
+    margin: 10px 0;
+}
+
+.forget {
+    color: white;
+    text-decoration: none;
+}
+
+.btn__form {
+    width: 100%;
+    margin-top: 12px;
+    font-size: 1rem;
+    padding: 14px;
+    border: none;
+    border-radius: 12px;
+    background-color: #3038f0;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+}
+
+.btn__form:hover {
+    background-image: linear-gradient(to right, #b18ae7, #aa8cf6, #b6cef4ad);
+    background-size: 200% 200%;
+    animation: moverGradiente 4s infinite;
+}
+
+@keyframes moverGradiente {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: -200% 0%;
+    }
+}
+
+.sigin__remember {
+    display: flex;
+    align-items: center;
+    margin-bottom: 4px;
+    justify-content: space-around;
+}
+
+/*informacion*/
+.informacion__mensaje {
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+    color: #3038f0;
+}
+
+/*seccion del registro*/
+.Registro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    background-image: url(../static/imagenes/fondoArc.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.container__singup__titulos {
+    width: 31%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 30px;
+    border-radius: 12px;
+    /* background-color: #28033142; */
+}
+
+.singup__titulo {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 10px 0px;
+    color: rgba(0, 0, 0, 0.775);
+}
+
+label {
+    /*Sus etiquetas*/
+    color: #757575;
+}
+
+/*Salirse alv*/
+.btn__form--salir {
+    width: 140px;
+    height: 95vh;
+    padding: 7px 10px;
+    position: absolute;
+    right: 40;
+    top: 20;
+    font-size: 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3038f0;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    opacity: 0;
+}
+
+/* .btn__form--salir:hover {
+    background-color: #4B60EB;
+} */
+
+/*Margen al modal de login*/
+
+
+.contador {
+    font-size: 24px;
+    transition: all 1s ease;
+    /* Animación suave */
+}
+
+.modal-content i {
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 60px;
+    color: rgba(35, 187, 35, 0.676);
+}
+
+
+.modal-content--logins {
+    border-radius: 120px !important;
+}
+
+.imagen__pillow__container {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 10px;
+}
+
+.imagen__pillow {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.imagen__pillow__1 {
+    top: 150px;
+    left: 100px;
+}
+
+.imagen__pillow__2 {
+    top: 150px;
+    left: 200px;
+}
+
+.imagen__pillow__3 {
+    top: 150px;
+    left: 300px;
+}
+
+.imagen__pillow__4 {
+    top: 150px;
+}
+
+.password-input {
+    position: relative;
+}
+
+.password-input button {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.password-input button:focus {
+    outline: none;
+}

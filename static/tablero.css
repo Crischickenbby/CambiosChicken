@@ -1,0 +1,261 @@
+/*Gestor Tablero*/
+
+:root {
+    --color-gris: #515051;
+    --color-verde: #66d5aadb;
+    --color-fondo: #e2e6f1;
+    --color-rojo: #fe4059;
+}
+
+.loader--modify {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 85%;
+    height: 100vh;
+    /* background-color: red; */
+}
+
+.spinner__tamaño{
+    width: 4.5rem !important;
+    height: 4.5rem !important;
+}
+
+.resumen {
+    /*fondo de resumen*/
+    width: 85%;
+    height: 100vh;
+    /* background-color: var(--color-fondo); */
+}
+
+.resumen__titulo {
+    margin: 30px 0px 0px 30px;
+}
+
+.resumen__enlaces {
+    text-decoration: none;
+    color: #80f0ba;
+}
+
+.resumen__cards {
+    /*Contenedor de las tarjetas*/
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding: 18px;
+    margin: 10px 0 20px 0px;
+    /* background-color: red; */
+}
+
+.resumen__card__item {
+    /*tarjetas*/
+    width: 17%;
+    height: 120px;
+    background-color: #f3f3f3c6;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(73, 71, 71, 0.194);
+}
+
+.resumen__card__item:hover,
+.resumen__card__item:hover>.resumen__enlaces {
+    /*tarjetas*/
+    transform: scale(1.04);
+    cursor: pointer;
+    color: #187347;
+    background-color: #80f0ba;
+}
+
+.resumen__card__textos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+
+.resumen__card__titulo {
+    font-size: 36px;
+}
+
+
+.resumen__card__paragraph {
+    /*Icono + parrafo*/
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.resumen__paragraph {
+    font-size: 19px;
+    color: var(--color-gris);
+    margin: 0;
+}
+
+.resumen__card__icon {
+    font-size: 19px;
+    color: var(--color-gris);
+}
+
+.resumen__card__icon--modify {
+    font-size: 17px;
+}
+
+/*Bandaeras*/
+.container__banderas {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.resumen__card__item--bandera {
+    width: 200px;
+    height: 43%;
+    border-radius: 5px;
+}
+
+.resumen__card__textos--modify {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.resumen__paragraph__bandera {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.resumen__card__titulo__bandera {
+    margin: 0;
+    font-size: 20px;
+}
+
+/*Seccion vendidos +  deudores + final*/
+.resumen__card__item2 {
+    /*tarjetas*/
+    width: 47%;
+    min-height: 240px;
+    padding: 10px;
+    background-color: #f3f3f3a4;
+    border-radius: 10px;
+    box-shadow: 0px 0px 5px 0px rgba(73, 71, 71, 0.401);
+}
+
+.resumen__card__titulo2 {
+    /*titulos widgets*/
+    margin: 5px 0 20px 25px;
+}
+
+.resumen__card__items__vendidos {
+    /*fotos*/
+    display: flex;
+    gap: 2px;
+}
+
+.imagen {
+    width: 120px;
+    height: 120px;
+    display: block;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px 0px rgba(73, 71, 71, 0.194);
+}
+
+.resumen__card__items {
+    /*entre fotos*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33%;
+    overflow: hidden;
+    padding: 10px 15px;
+    text-align: center;
+
+}
+
+.resumen__paragraph2 {
+    /*titulos de mas vendidos*/
+    margin: 0;
+    color: var(--color-gris);
+}
+
+/*reembolso (parte ultima)*/
+.resumen__cards--modify {
+    justify-content: space-around;
+    /* background-color: yellow; */
+}
+
+.resumen__card__item2--reebolso {
+    /*los 2 de abajo*/
+    width: 21%;
+    height: 140px;
+    min-height: 10px;
+}
+
+.resumen__card__item2--reebolso:hover {
+    transform: scale(1.04);
+    background-color: rgba(251, 58, 58, 0.649);
+}
+
+
+.resumen__card__reembolso__flex {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.resumen__paragraph__invertir {
+    font-size: 18px;
+    color: var(--color-gris);
+}
+
+.resumen__card__invertir {
+    /*titulo*/
+    font-size: 2.2rem;
+    color: var(--color-rojo);
+}
+
+
+/*objetivo */
+.resumen__card__objetivo {
+    margin: 10px 0px 15px;
+}
+
+.resumen__card__item2--ultimo {
+    min-height: 50px;
+    height: 110px;
+    padding: 10px 30px;
+}
+
+.tablita {
+    height: 80%;
+
+}
+
+.tablita__nombre {
+    padding: 1px;
+}
+
+.resumen__card__enlace{
+    text-decoration: none;
+    color: black;
+}
+
+.tabla__tablero{
+    width: 90% !important;
+    margin: auto;
+}
+
+.terminos__link{
+    margin: 12px;
+}
+
+.items__terminos{
+    margin: 10px;
+    width: 85%;
+}
+
