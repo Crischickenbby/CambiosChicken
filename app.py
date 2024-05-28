@@ -7,6 +7,7 @@ from flask import (
     flash,
     send_from_directory,
     session,
+    jsonify
 )
 import os
 import config
@@ -185,6 +186,8 @@ def tablero():
         return render_template("inicio/iniciar_sesion.html")
 
 
+#INVENTARIO LO PASE A ABAJO
+
 @app.route("/inventario", methods=['GET'])
 def inventario():
     if "email" in session:
@@ -228,6 +231,9 @@ def inventario():
         return render_template('inventario.html', Productos=Productos, Proveedor=Proveedor, Categorias=Categorias, producto_escaso=producto_escaso)
     else:
         return render_template("inicio/iniciar_sesion.html")
+
+
+
 
 
 @app.route("/caja", methods=['GET'])
@@ -274,18 +280,6 @@ def clientes():
         Telefono = cur.fetchall()
         cur.close()
         return render_template('clientes.html', clientes=clientes, Telefono=Telefono)
-    else:
-        return render_template("inicio/iniciar_sesion.html")
-
-
-@app.route('/ventas', methods=['GET'])
-def ventas():
-    if "email" in session:
-        cur = mysql.connection.cursor()
-        cur.execute("SELECT * FROM ventas")
-        ventas = cur.fetchall()
-        cur.close()
-        return render_template('ventas.html', ventas=ventas)
     else:
         return render_template("inicio/iniciar_sesion.html")
 
@@ -992,6 +986,67 @@ def cerrar_sesion():
         return render_template("inicio/iniciar_sesion.html")
     else:
         return redirect(url_for("iniciar_sesion"))
+    
+@app.route('/ventas', methods=['GET', 'POST'])
+def ventas():
+    if "email" in session:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT * FROM producto")
+        productos = cur.fetchall()
+        cur.close()
+        return render_template('ventas.html', productos=productos)
+    else:
+        return render_template("inicio/iniciar_sesion.html")
+    
+
+@app.route('/api/productos', methods=['GET'])
+def get_productos():
+    cur = mysql.connection.cursor()
+    cur.execute("SELECT ID_Producto, Nombre, Precio_venta FROM producto")
+    productos = cur.fetchall()
+    cur.close()
+
+    # Convertir los productos a una lista de diccionarios con claves correctas
+    productos_list = []
+    for producto in productos:
+        productos_list.append({
+            "id": producto[0],
+            "Nombre": producto[1],
+            "Precio_venta": producto[2]
+        })
+
+    return jsonify(productos_list)
+
+@app.route('/realizar_venta', methods=['POST'])
+def realizar_venta():
+    if not request.json:
+        return jsonify({'success': False, 'message': 'No data provided'}), 400
+
+    productos_vendidos = request.json
+
+    try:
+        cur = mysql.connection.cursor()
+        for producto in productos_vendidos:
+            id_producto = producto['id']
+            cantidad_vendida = producto['cantidad']
+            # Actualizar las existencias del producto
+            cur.execute("""
+                UPDATE producto
+                SET Existencias = Existencias - %s
+                WHERE ID_Producto = %s AND Existencias >= %s
+            """, (cantidad_vendida, id_producto, cantidad_vendida))
+
+            if cur.rowcount == 0:
+                return jsonify({'success': False, 'message': 'No hay suficientes existencias'}), 400
+
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({'success': True})
+
+    except Exception as e:
+        mysql.connection.rollback()
+        return jsonify({'success': False, 'message': str(e)}), 500
+
 
 
 if __name__ == '__main__':

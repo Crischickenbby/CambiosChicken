@@ -116,6 +116,7 @@
             </div>
 
             <div class="modal-body"> <!--Formulario-->
+                
                 <form id="taskForm" method="POST" action="{{ url_for('agregar_producto')}}"> <!--Añadir producto-->
                     <div class="">
                         <label for="nombre">Nombre:</label>
@@ -156,6 +157,7 @@
                             {% endfor %}
                         </select>
                     </div>
+                    <!--------------------------------------------->
                     <div class="">
                         <label for="categoria">Categoria:</label>
                         <select class="form-control" id="categoria" name="categoria" required>
@@ -165,7 +167,7 @@
                             {% endfor %}
                         </select>
                     </div>
-
+                    <!--------------------------------------------->
                     <div class="text-center mt-2">
                         <button type="reset" id="btn_reset" class="btn btn-secondary">Resetear</button>
                         <button type="submit" class="btn btn-primary">Guardar</button>
