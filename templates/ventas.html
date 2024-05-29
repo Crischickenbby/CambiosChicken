@@ -27,6 +27,20 @@
     Realizar Venta
   </button>
 
+  <button type="button" class="btn_reset btn btn-danger my-2">
+    Resetear Ventas
+  </button>
+
+  <div class="float-end">
+    <div class="btn-group" role="group" aria-label="Forma de Pago">
+      <input class="btn-check" type="radio" name="forma-pago" id="efectivo" autocomplete="off" value="efectivo">
+      <label class="btn btn-outline-primary" for="efectivo">Efectivo</label>
+  
+      <input class="btn-check" type="radio" name="forma-pago" id="tarjeta" autocomplete="off" value="tarjeta">
+      <label class="btn btn-outline-primary" for="tarjeta">Tarjeta</label>
+    </div>
+  </div>
+  
   <div id="total-venta" class="text-end fw-bold mt-3">
     Total: $0.00
   </div>
@@ -67,6 +81,21 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     $(document).ready(function(){
+      // Función para cargar datos de ventas desde localStorage
+      function cargarVentasDesdeLocalStorage() {
+        let ventasGuardadas = localStorage.getItem('ventas');
+        if (ventasGuardadas) {
+          $('#ventas-table-body').html(ventasGuardadas);
+          actualizarTotalVenta();
+        }
+      }
+  
+      // Función para guardar datos de ventas en localStorage
+      function guardarVentasEnLocalStorage() {
+        let ventasHTML = $('#ventas-table-body').html();
+        localStorage.setItem('ventas', ventasHTML);
+      }
+  
       // Función para calcular y actualizar el total de la venta
       function actualizarTotalVenta() {
         let total = 0;
@@ -76,7 +105,10 @@
         });
         $('#total-venta').text('Total: $' + total.toFixed(2));
       }
-
+  
+      // Restaurar ventas desde localStorage al cargar la página
+      cargarVentasDesdeLocalStorage();
+  
       // Mostrar alerta
       function mostrarAlerta(mensaje, tipo) {
         const alertHtml = `<div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
@@ -84,8 +116,22 @@
                              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                            </div>`;
         $('#alert-container').html(alertHtml);
+        // Desaparecer la alerta después de 5 segundos
+        setTimeout(function() {
+          $('.alert').alert('close');
+        }, 5000);
       }
-
+  
+      // Mostrar alerta de producto agregado
+      function mostrarAlertaProductoAgregado(productName) {
+        mostrarAlerta(`Producto "${productName}" agregado`, 'success');
+      }
+  
+      // Mostrar alerta de producto eliminado
+      function mostrarAlertaProductoEliminado(productName) {
+        mostrarAlerta(`Producto "${productName}" eliminado de la tabla de ventas`, 'info');
+      }
+  
       // Cargar productos cuando se hace clic en el botón "Agregar Producto"
       $('#add-product-btn').click(function(){
         $.get('/api/productos', function(data){
@@ -99,7 +145,7 @@
           $('#productsModal').modal('show');
         });
       });
-
+  
       // Agregar producto a la tabla cuando se selecciona
       $('#product-list').on('click', 'li', function(){
         let productName = $(this).data('nombre');
@@ -117,38 +163,46 @@
         );
         $('#productsModal').modal('hide');
         actualizarTotalVenta();
+        guardarVentasEnLocalStorage(); // Guardar ventas en localStorage
+        mostrarAlertaProductoAgregado(productName); // Mostrar alerta de producto agregado
       });
-
+  
       // Eliminar producto de la tabla cuando se hace clic en el botón "Eliminar"
       $('#ventas-table-body').on('click', '.delete-btn', function(){
+        let productName = $(this).closest('tr').find('td:first').text();
         $(this).closest('tr').remove();
         actualizarTotalVenta();
+        guardarVentasEnLocalStorage(); // Guardar ventas en localStorage
+        mostrarAlertaProductoEliminado(productName); // Mostrar alerta de producto eliminado
       });
-
+  
       // Manejar el clic en el botón "Realizar Venta"
       $('.btn_venta').click(function() {
         let productosVendidos = [];
+        let formaPago = $('input[name="forma-pago"]:checked').val(); // Obtener la forma de pago seleccionada
+  
         $('#ventas-table-body tr').each(function() {
           let idProducto = $(this).data('id');
           let cantidad = parseInt($(this).find('td:nth-child(2)').text());
           productosVendidos.push({ id: idProducto, cantidad: cantidad });
         });
-
+  
         if (productosVendidos.length === 0) {
           mostrarAlerta('No hay productos en la venta', 'warning');
           return;
         }
-
+  
         $.ajax({
           type: 'POST',
           url: '/realizar_venta',
           contentType: 'application/json',
-          data: JSON.stringify(productosVendidos),
+          data: JSON.stringify({ productos: productosVendidos, forma_pago: formaPago }), // Incluir la forma de pago en los datos de la venta
           success: function(response) {
             if (response.success) {
               $('#ventas-table-body').empty();
               actualizarTotalVenta();
               mostrarAlerta('Venta realizada con éxito', 'success');
+              localStorage.removeItem('ventas'); // Eliminar datos de ventas en localStorage después de la venta
             } else {
               mostrarAlerta('Error al realizar la venta: ' + response.message, 'danger');
             }
@@ -158,7 +212,20 @@
           }
         });
       });
+  
+      // Resetear todo lo relacionado con la venta al hacer clic en el botón "Resetear Ventas"
+      $('.btn_reset').click(function() {
+        $('#ventas-table-body').empty(); // Limpiar tabla de ventas
+        actualizarTotalVenta(); // Actualizar total de la venta
+        localStorage.removeItem('ventas'); // Eliminar datos de ventas en localStorage
+        mostrarAlerta('Venta reseteada', 'info');
+      });
     });
   </script>
+  
+  
+  
+  
+  
 
 {% endblock %}
