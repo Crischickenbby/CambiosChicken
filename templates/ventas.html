@@ -31,6 +31,8 @@
     Total: $0.00
   </div>
 
+  <div id="alert-container" class="mt-3"></div>
+
   <table class="table table-hover table-striped align-middle">
     <thead>
       <tr>
@@ -74,7 +76,16 @@
         });
         $('#total-venta').text('Total: $' + total.toFixed(2));
       }
-  
+
+      // Mostrar alerta
+      function mostrarAlerta(mensaje, tipo) {
+        const alertHtml = `<div class="alert alert-${tipo} alert-dismissible fade show" role="alert">
+                             ${mensaje}
+                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                           </div>`;
+        $('#alert-container').html(alertHtml);
+      }
+
       // Cargar productos cuando se hace clic en el botón "Agregar Producto"
       $('#add-product-btn').click(function(){
         $.get('/api/productos', function(data){
@@ -88,7 +99,7 @@
           $('#productsModal').modal('show');
         });
       });
-  
+
       // Agregar producto a la tabla cuando se selecciona
       $('#product-list').on('click', 'li', function(){
         let productName = $(this).data('nombre');
@@ -107,13 +118,13 @@
         $('#productsModal').modal('hide');
         actualizarTotalVenta();
       });
-  
+
       // Eliminar producto de la tabla cuando se hace clic en el botón "Eliminar"
       $('#ventas-table-body').on('click', '.delete-btn', function(){
         $(this).closest('tr').remove();
         actualizarTotalVenta();
       });
-  
+
       // Manejar el clic en el botón "Realizar Venta"
       $('.btn_venta').click(function() {
         let productosVendidos = [];
@@ -122,12 +133,12 @@
           let cantidad = parseInt($(this).find('td:nth-child(2)').text());
           productosVendidos.push({ id: idProducto, cantidad: cantidad });
         });
-  
+
         if (productosVendidos.length === 0) {
-          alert('No hay productos en la venta');
+          mostrarAlerta('No hay productos en la venta', 'warning');
           return;
         }
-  
+
         $.ajax({
           type: 'POST',
           url: '/realizar_venta',
@@ -137,18 +148,17 @@
             if (response.success) {
               $('#ventas-table-body').empty();
               actualizarTotalVenta();
-              alert('Venta realizada con éxito');
+              mostrarAlerta('Venta realizada con éxito', 'success');
             } else {
-              alert('Error al realizar la venta: ' + response.message);
+              mostrarAlerta('Error al realizar la venta: ' + response.message, 'danger');
             }
           },
           error: function() {
-            alert('Error en la comunicación con el servidor');
+            mostrarAlerta('Error en la comunicación con el servidor (ES POSIBLE QUE HAYAS PEDIDO MAS PRODUCTOS DE LOS QUE HAY EN EXISTENCIA, CHECA TU INVENTARIO!!!)', 'danger');
           }
         });
       });
     });
   </script>
-  
 
 {% endblock %}

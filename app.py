@@ -11,8 +11,10 @@ from flask import (
 )
 import os
 import config
+import MySQLdb
 from datetime import datetime
 from flask_mysqldb import MySQL
+
 
 app = Flask(__name__)
 
@@ -1046,7 +1048,6 @@ def realizar_venta():
     except Exception as e:
         mysql.connection.rollback()
         return jsonify({'success': False, 'message': str(e)}), 500
-
 
 
 if __name__ == '__main__':
